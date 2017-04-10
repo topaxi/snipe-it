@@ -31,11 +31,11 @@ RUN echo export APACHE_RUN_GROUP=staff >> /etc/apache2/envvars
 COPY docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 #SSL
-RUN mkdir -p /var/lib/snipeit/ssl
-COPY docker/001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf
+#RUN mkdir -p /var/lib/snipeit/ssl
+#COPY docker/001-default-ssl.conf /etc/apache2/sites-enabled/001-default-ssl.conf
 #COPY docker/001-default-ssl.conf /etc/apache2/sites-available/001-default-ssl.conf
 
-RUN a2enmod ssl
+#RUN a2enmod ssl
 #RUN a2ensite 001-default-ssl.conf
 
 COPY . /var/www/html
@@ -79,6 +79,11 @@ RUN cd /var/www/html;composer install
 
 ############### DATA VOLUME #################
 
+RUN chown 1000:100 -R /var/lib/snipeit && \
+    chmod o+rwX -R /var/lib/snipeit && \
+    chmod o+rwX -R /etc/apache2 && \
+    chmod o+rwX /etc
+
 VOLUME ["/var/lib/snipeit"]
 
 ##### START SERVER
@@ -86,7 +91,8 @@ VOLUME ["/var/lib/snipeit"]
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+USER 1000
+
 ENTRYPOINT ["/entrypoint.sh"]
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 8080
