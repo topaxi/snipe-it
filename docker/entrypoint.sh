@@ -16,5 +16,4 @@ for dir in 'data/private_uploads' 'data/uploads' 'data/uploads/avatars' 'data/up
 done
 
 . /etc/apache2/envvars
-exec bash
-#exec apache2 -DNO_DETACH < /dev/null
+exec apache2 -DNO_DETACH < /dev/null
