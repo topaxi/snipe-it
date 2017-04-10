@@ -82,7 +82,7 @@ RUN cd /var/www/html;composer install
 ############### DATA VOLUME #################
 
 RUN mkdir -p /var/lib/snipeit && \
-    chown 1000:1000 -R /var/lib/snipeit && \
+    chown 1000:1000 -R /var/lib/snipeit /var/log/apache2 && \
     chmod o+rwX -R /var/lib/snipeit && \
     chmod o+rwX -R /etc/apache2 && \
     chmod o+rwX /etc
