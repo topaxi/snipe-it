@@ -42,18 +42,6 @@ COPY docker/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 
 RUN a2enmod rewrite
 
-############## DEPENDENCIES via COMPOSER ###################
-
-WORKDIR /var/www/html
-
-COPY composer.json composer.lock database /var/www/html/
-
-#global install of composer
-RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
-
-# Get dependencies
-RUN cd /var/www/html;composer install
-
 ############ INITIAL APPLICATION SETUP #####################
 
 #Append to bootstrap file (less brittle than 'patch')
@@ -71,6 +59,16 @@ RUN \
 	rm -r "/var/www/html/storage/private_uploads" && ln -fs "/var/lib/snipeit/data/private_uploads" "/var/www/html/storage/private_uploads" \
       && rm -rf "/var/www/html/public/uploads" && ln -fs "/var/lib/snipeit/data/uploads" "/var/www/html/public/uploads" \
       && rm -r "/var/www/html/storage/app/backups" && ln -fs "/var/lib/snipeit/dumps" "/var/www/html/storage/app/backups"
+
+############## DEPENDENCIES via COMPOSER ###################
+
+WORKDIR /var/www/html
+
+#global install of composer
+RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
+
+# Get dependencies
+RUN cd /var/www/html;composer install --quiet
 
 ############### APPLICATION INSTALL/INIT #################
 
