@@ -44,8 +44,9 @@ RUN a2enmod rewrite
 
 ############## DEPENDENCIES via COMPOSER ###################
 
-COPY composer.json composer.lock /var/www/html/
-COPY database /var/www/html/
+WORKDIR /var/www/html
+
+COPY composer.json composer.lock database /var/www/html/
 
 #global install of composer
 RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
@@ -54,8 +55,6 @@ RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.ph
 RUN cd /var/www/html;composer install
 
 ############ INITIAL APPLICATION SETUP #####################
-
-WORKDIR /var/www/html
 
 #Append to bootstrap file (less brittle than 'patch')
 # RUN sed -i 's/return $app;/$env="production";\nreturn $app;/' bootstrap/start.php
