@@ -1,5 +1,6 @@
 .git
 .dockerignore
+Dockerfile
 app/storage/logs/*
 app/storage/views/*
 vendor/*
