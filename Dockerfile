@@ -85,8 +85,6 @@ RUN mkdir -p /var/lib/snipeit && \
     chmod o+rwX -R /etc/apache2 && \
     chmod o+rwX /etc
 
-VOLUME ["/var/lib/snipeit"]
-
 ##### START SERVER
 
 COPY docker/entrypoint.sh /entrypoint.sh
