@@ -44,7 +44,7 @@ RUN a2enmod rewrite
 
 ############## DEPENDENCIES via COMPOSER ###################
 
-COPY composer.json composer.lock /var/www/html/
+COPY composer.json composer.lock database /var/www/html/
 
 #global install of composer
 RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
