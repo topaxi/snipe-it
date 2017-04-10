@@ -15,8 +15,6 @@ for dir in 'data/private_uploads' 'data/uploads' 'data/uploads/avatars' 'data/up
 	mkdir -p "/var/lib/snipeit/$dir"
 done
 
-chown -R docker:root /var/lib/snipeit/data/*
-chown -R docker:root /var/lib/snipeit/dumps
-
+cat /etc/apache2/envvars
 . /etc/apache2/envvars
 exec apache2 -DNO_DETACH < /dev/null
