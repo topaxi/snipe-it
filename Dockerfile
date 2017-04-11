@@ -94,6 +94,8 @@ RUN mkdir -p /var/lib/snipeit && \
 RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
     ln -sf /proc/self/fd/1 /var/log/apache2/error.log
 
+RUN sed -i "s#;error_log = syslog#error_log = /proc/self/fd/1#" /etc/php5/apache2/php.ini
+
 ##### START SERVER
 
 COPY docker/entrypoint.sh /entrypoint.sh
