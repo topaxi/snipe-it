@@ -25,8 +25,8 @@ RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php
 
 RUN useradd --uid 1000 --gid 50 docker
 
-RUN echo export APACHE_RUN_USER=docker >> /etc/apache2/envvars
-RUN echo export APACHE_RUN_GROUP=staff >> /etc/apache2/envvars
+RUN echo export APACHE_RUN_USER=1000 >> /etc/apache2/envvars
+RUN echo export APACHE_RUN_GROUP=1000 >> /etc/apache2/envvars
 
 RUN sed -i "s/Listen 80/Listen 8080/" /etc/apache2/ports.conf
 
