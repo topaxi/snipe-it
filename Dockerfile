@@ -87,7 +87,7 @@ RUN mkdir -p /var/lib/snipeit && \
       /var/log/apache2 \
       /var/run/apache2 \
       /var/lock/apache2 && \
-    chmod o+rwX -R /var/lib/snipeit /var/log/apache2 && \
+    chmod o+rwX -R /var/lib/snipeit /var/log/apache2 /var/lock/apache2 && \
     chmod o+rwX -R /etc/apache2 && \
     chmod o+rwX /etc
 
