@@ -91,10 +91,11 @@ RUN mkdir -p /var/lib/snipeit && \
     chmod o+rwX -R /etc/apache2 && \
     chmod o+rwX /etc
 
-RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
-    ln -sf /proc/self/fd/1 /var/log/apache2/error.log
-
-RUN sed -i "s#;error_log = syslog#error_log = /proc/self/fd/1#" /etc/php5/apache2/php.ini
+# RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
+#     ln -sf /proc/self/fd/1 /var/log/apache2/error.log
+# 
+# RUN sed -i "s#;error_log = syslog#error_log = /proc/self/fd/1#" /etc/php5/apache2/php.ini
+RUN sed -i "s#;error_log = syslog#error_log = /var/log/apache2/php_errors#" /etc/php5/apache2/php.ini
 
 ##### START SERVER
 
