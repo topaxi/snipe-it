@@ -91,6 +91,9 @@ RUN mkdir -p /var/lib/snipeit && \
     chmod o+rwX -R /etc/apache2 && \
     chmod o+rwX /etc
 
+RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
+    ln -sf /proc/self/fd/1 /var/log/apache2/error.log
+
 ##### START SERVER
 
 COPY docker/entrypoint.sh /entrypoint.sh
